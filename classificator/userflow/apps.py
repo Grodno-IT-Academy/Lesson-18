@@ -1,0 +1,8 @@
+from django.apps import AppConfig
+
+
+class UserflowConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'userflow'
+    def ready(self):
+        import userflow.signals

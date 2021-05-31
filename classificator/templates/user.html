@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-3">
+        <h1>{{ request.user }}</h1>
+        {% if request.user.profile.picture %}
+        <img src="{{ request.user.profile.picture.url }}" height="200" class="rounded">
+        {% else %}
+        <img src="https://image.freepik.com/free-icon/male-user-profile-picture_318-37825.jpg" height="200" class="rounded">
+        {% endif %}
+        {% if request.user.profile.description %}
+        <h2>Description</h2>
+        <p>{{ request.user.profile.description }}</p>
+        {% endif %}
+        <a href="{% url 'update_profile' %}" class="btn btn-primary">Update Profile</a>
+    </div>
+    <div class="col-9">
+        <h2>Pictures</h2>
+        <table class="table">
+            <a href="{% url 'form' %}" class="btn btn-primary btn-lg">Upload Image</a>
+            <thead>
+                <tr>
+                    <th scope="col">Infer</th>
+                    <th scope="col">View</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for img in images %}
+                <tr>
+                    <td scope="row">
+                        <form action="{% url 'infer' img.id %}" method="post">
+                            {% csrf_token %}
+                            <input class="btn btn-md btn-success" value="{{ forloop.counter }}" type="submit">
+                        </form>
+
+                    </td>
+                    <td>
+                        <!--view-->
+                        <a class="btn btn-md btn-primary" href="{% url 'image' img.id %}">View</a>
+                    </td>
+                    <td>
+                        <!--user-->
+                        <p>{{ img.user }}</p>
+                    </td>
+                    <td>
+                        <!--image-->
+                        <img src="{{ img.image.url }}" height="60" alt="{{ img.id }}" class="rounded">
+                    </td>
+                    <td>
+                        <!--update-->
+                        <a class="btn btn-md btn-warning" href="{% url 'update' img.id %}">Update</a>
+                    </td>
+                    <td>
+                        <!--delete-->
+                        <a class="btn btn-md btn-danger" href="{% url 'delete' img.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

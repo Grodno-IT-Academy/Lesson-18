@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<table class="table">
+    <a href="{% url 'form' %}" class="btn btn-primary btn-lg">Upload Image</a>
+    <thead>
+        <tr>
+            <th scope="col">Infer</th>
+            <th scope="col">View</th>
+            <th scope="col">User</th>
+            <th scope="col">Image</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for img in images %}
+        <tr>
+            <td scope="row">
+                <form action="{% url 'infer' img.id %}" method="post">
+                    {% csrf_token %}
+                    <input class="btn btn-md btn-success" value="{{ forloop.counter }}" type="submit">
+                </form>
+
+            </td>
+            <td>
+                <!--view-->
+                <a class="btn btn-md btn-primary" href="{% url 'image' img.id %}">View</a>
+            </td>
+            <td>
+                <!--user-->
+                <p>{{ img.user }}</p>
+            </td>
+            <td>
+                <!--image-->
+                <img src="{{ img.image.url }}" height="60" alt="{{ img.id }}" class="rounded">
+<!--                <img class="rounded" height="50" alt="image{{ img.id }}"  src="{{ img.image.url }}">-->
+            </td>
+            <td>
+                <!--update-->
+                <a class="btn btn-md btn-warning" href="{% url 'update' img.id %}">Update</a>
+            </td>
+            <td>
+                <!--delete-->
+                <a class="btn btn-md btn-danger" href="{% url 'delete' img.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
