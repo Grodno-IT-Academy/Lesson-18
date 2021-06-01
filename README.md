@@ -24,29 +24,77 @@ pipenv sync
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'database name',
-        'USER':'database user',
-        'PASSWORD':'database password',
-        'HOST':'database endpoint',
-        'PORT':'database port'
+        'NAME': 'DEMO_TEST',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
 ```
+после установки новой базы и подключения проверьте пользуясь:
+```shell
+python manage.py migrate
+```
+## Создай aws счёт
+## Открой новую базу данных на AWS
+Эти шаги мне не удались дома. Я думаю интернет не позволяет.
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'database_1',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST': 'database-2.cxh4hqdaiqm7.eu-north-1.rds.amazonaws.com',
+        'PORT': '5432',
+    }
+}
+```
+# AWS S3 Bucket Setup
+зайти в aws и найти s3 создать бакет
+в permissions изменить cors на:
+```json
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "GET",
+            "POST",
+            "PUT"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": []
+    }
+]
+```
+зайди в IAM (identity access managment)
+- create user
+- attache existing policies
+    - AmazonS3FullAccess
+    
+Это позволит нам загружать файлы
 
-
+```python
 #S3 BUCKETS CONFIG
 
-'''
 
-AWS_ACCESS_KEY_ID = '*****************'
+AWS_ACCESS_KEY_ID = 'AKIA5BO6KSV5OR4PDKX2'
 
-AWS_SECRET_ACCESS_KEY = '*****************'
+AWS_SECRET_ACCESS_KEY = 'Cz1C5vByCFY5iyaR444f+2ke0fW5Sib0FkNnF1mI'
 
-AWS_STORAGE_BUCKET_NAME = '*****************'
-
-
-
+AWS_STORAGE_BUCKET_NAME = 'mikhailclassifier'
+```
+дальше мы воспользуемся модулем `django-storages`
+```shell
+pipenv install django-storages
+```
+```python
 AWS_S3_FILE_OVERWRITE = False
 
 AWS_DEFAULT_ACL = None
@@ -54,37 +102,10 @@ AWS_DEFAULT_ACL = None
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-'''
-
+```
 
 
 
 
 
 
-'''
-
-<?xml version="1.0" encoding="UTF-8"?>
-
-<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
-
-<CORSRule>
-
-    <AllowedOrigin>*</AllowedOrigin>
-
-    <AllowedMethod>GET</AllowedMethod>
-
-    <AllowedMethod>POST</AllowedMethod>
-
-    <AllowedMethod>PUT</AllowedMethod>
-
-    <AllowedHeader>*</AllowedHeader>
-
-</CORSRule>
-
-</CORSConfiguration>
-
-
-
-'''
