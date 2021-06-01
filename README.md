@@ -89,11 +89,22 @@ AWS_ACCESS_KEY_ID = 'AKIA5BO6KSV5OR4PDKX2'
 AWS_SECRET_ACCESS_KEY = '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'
 
 AWS_STORAGE_BUCKET_NAME = 'mikhailclassifier'
+
+AWS_S3_REGION_NAME = 'eu-north-1'
 ```
 дальше мы воспользуемся модулем `django-storages`
 ```shell
 pipenv install django-storages
+pipenv lock --pre
+pipenv sync
 ```
+`storages` зависим от `boto3` в использовании амазон-серверов так-что придётся установить и их!
+```shell
+pipenv install boto3
+pipenv lock --pre
+pipenv sync
+```
+https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
 ```python
 AWS_S3_FILE_OVERWRITE = False
 
@@ -103,6 +114,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 ```
+- upload files with folders to s3
 
 
 

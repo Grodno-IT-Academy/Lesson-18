@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'model',
     'views',
     'userflow.apps.UserflowConfig',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,17 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'pythongrodnoitacademy@gmail.com'
 EMAIL_HOST_PASSWORD = 'Gr0dnoITAc@demy'
+
+
+AWS_ACCESS_KEY_ID = 'AKIA5BO6KSV5CBT2WDOR'
+
+AWS_SECRET_ACCESS_KEY = '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'
+
+AWS_STORAGE_BUCKET_NAME = 'mikhailclassifier'
+AWS_S3_REGION_NAME = 'eu-north-1'
+
+AWS_S3_FILE_OVERWRITE = False
+
+AWS_DEFAULT_ACL = None
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

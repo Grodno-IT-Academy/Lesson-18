@@ -13,6 +13,8 @@ django-crispy-forms = "*"
 pytz = "*"
 flask = "*"
 psycopg2-binary = "*"
+django-storages = "*"
+boto3 = "*"
 
 [dev-packages]
 
