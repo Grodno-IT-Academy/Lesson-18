@@ -117,6 +117,7 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 - upload files with folders to s3
 
 # test!!!
+# install heroku cli
 
 
 
