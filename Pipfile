@@ -12,6 +12,7 @@ pillow = "*"
 django-crispy-forms = "*"
 pytz = "*"
 flask = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
