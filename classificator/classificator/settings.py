@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,8 +82,12 @@ WSGI_APPLICATION = 'classificator.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd8dklea7go2iq9',
+        'USER': 'zdogbjwyiavscl',
+        'PASSWORD': '5b94fc87ff39309ea35ab8890af6c70f62a083dcffc63c5d794f7b3425a6b711',
+        'HOST': 'ec2-54-195-76-73.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -127,6 +132,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR.joinpath('static/'),
 ]
+STATIC_ROOT = BASE_DIR.joinpath('staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
