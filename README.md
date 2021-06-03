@@ -1,5 +1,6 @@
 # Подготовка
 ```shell
+pip install --upgrade setuptools wheel
 pip install --upgrade pipenv
 ```
 вышла новая версия  `pipenv`
@@ -118,9 +119,69 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # test!!!
 # install heroku cli
+https://id.heroku.com/login
+- Create heroku account
+- install heroku cli
+  
+  https://devcenter.heroku.com/articles/heroku-cli
+  
+Для мака и линукса это комманда в консоль а для видоуса нужно использовать установщика
+```shell
+brew tap heroku/brew && brew install heroku
+```
+Heroku очень хорошо сделаная платформа так-что надо внмиательно читать консоль-информацию и исправлять системные ошибки!
+```shell
+heroku login
+```
+заканчиваем логин в браузере
+```shell
+heroku git:remote -a classifier-grodno-it-academy
+```
+это подключит гит на heroku к нашей папке.  Можно проверить с:
+```shell
+git remote -v
+```
+по скольку github далеко не единственное место пользующееся git системой.
 
+мы так-же можем создать новый проект из командной линии с помощю:
+```shell
+heroku create cutom_project_name
+```
+нам понадобиться ещё два pip модуля в нашем проекте
+```shell
+pipenv install gunicorn whitenoise
+pipenv lock --pre
+pipenv sync
+```
+heroku нужен requirements.txt файл
+```shell
+pipenv lock -r > requirements.txt
+```
+если кто не пользуется pipenv можно сделать
+```shell
+pip freeze > requirements.txt
+```
+heroku так-же нужно знать какой версией питона наш проект пользуется.  Для этого создаём `runtime.txt` файл и прописываем:
+```
+python-3.9.2
+```
+и ещё один файл по имени `Procfile`
+```shell
+atom Procfile
+```
+с внутреннастями
+```text
+web: gunicorn classificator.wsgi --log-file -
+```
+последнее приготовление к отправке не сервер это добавить наш domain в `settings.py`
+```python
+DEBUG = False
+ALLOWED_HOSTS = [
+  '127.0.0.1:8000',
+  'classifier-grodno-it-academy.herokuapp.com',
+]
+```
+в heroku нужно уточнить язык в settings табе buildpack
 
-
-
-
-
+- put website to github repository
+connect to github through heroku
