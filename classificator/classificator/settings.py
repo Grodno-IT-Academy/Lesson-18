@@ -76,13 +76,22 @@ WSGI_APPLICATION = 'classificator.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST': 'database-1.cxh4hqdaiqm7.eu-north-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -139,3 +148,14 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'pythongrodnoitacademy@gmail.com'
 EMAIL_HOST_PASSWORD = 'Gr0dnoITAc@demy'
+
+#variables for connecting to aws
+AWS_ACCESS_KEY_ID = 'AKIA5BO6KSV5AKRN5AAP'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'mikhailclassifier'
+AWS_S3_REGION_NAME = 'eu-north-1'
+#settings for s3 buckets
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
